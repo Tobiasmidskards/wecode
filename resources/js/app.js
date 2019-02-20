@@ -22,6 +22,8 @@ window.Vue = require('vue');
 
 Vue.component('idea-form-component', require('./components/IdeaForm.vue').default);
 Vue.component('feed-card-component', require('./components/FeedCards.vue').default);
+Vue.component('dashboard-component', require('./components/Dashboard.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

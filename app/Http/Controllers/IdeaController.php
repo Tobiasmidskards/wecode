@@ -1,6 +1,6 @@
 <?php
 
-//https://www.cloudways.com/blog/laravel-vue-single-page-app/
+
 
 namespace App\Http\Controllers;
 
@@ -42,9 +42,30 @@ class IdeaController extends Controller
         $idea->user_id = auth()->user()->id;
 
         $idea->save();
+
+        $idea = $idea->jsonSerialize();
+
         return response()->json([
+            'idea' => $idea,
             'message' => 'Successfully uploaded to database'
         ], 200);
+    }
+
+    public function update(Request $request, $id){
+        $this->validate($request, [
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+        $idea = Idea::find($id);
+        $idea->title = $request->input('title');
+        $idea->body = $request->input('body');
+
+        $idea->save();
+
+        return response()->json([
+            'message' => 'Successfully updated the database'
+        ], 200);        
     }
 
     public function destroy($id) {

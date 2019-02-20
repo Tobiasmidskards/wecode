@@ -15,9 +15,16 @@
                     @endif
 
                     You are logged in!
+
+                    
+
                 </div>
             </div>
         </div>
     </div>
+    
 </div>
+
+<hr>
+<dashboard-component></dashboard-component>
 @endsection
