@@ -6,18 +6,18 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
           <a class="nav-item nav-link active" href="/ideazer/public/feed">Feed</a>
-          <a class="nav-item nav-link" href="/ideazer/public/create">Opret</a>
+          <a class="nav-item nav-link" href="/ideazer/public/home">Dashboard</a>
           </div>
         
         <ul class="navbar-nav ml-auto">
             <!-- Authentication Links -->
             @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Log ind') }}</a>
+                    <a class="nav-link" href="{{ route('login') }}"> Log ind </a>
                 </li>
                 @if (Route::has('register'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Registrér') }}</a>
+                        <a class="nav-link" href="{{ route('register') }}">Registrér</a>
                     </li>
                 @endif
             @else
@@ -30,7 +30,7 @@
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
+                            Log ud
                         </a>
     
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

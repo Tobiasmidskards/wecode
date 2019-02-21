@@ -1,6 +1,6 @@
 <?php
 
-
+//https://www.cloudways.com/blog/laravel-vue-single-page-app/
 
 namespace App\Http\Controllers;
 
@@ -27,6 +27,14 @@ class IdeaController extends Controller
 
         return response($ideas->jsonSerialize(), Response::HTTP_OK);
     }
+
+    public function dashboard()
+    {
+        $ideas = Idea::where('user_id', auth()->user()->id)->get();
+
+        return response($ideas->jsonSerialize(), Response::HTTP_OK);
+    }
+
 
     public function store(Request $request)
     {

@@ -32,3 +32,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::post('/api/idea', 'IdeaController@store');
 
 Route::resource('/api/idea', 'IdeaController');
+Route::get('/api/dashboard', 'IdeaController@dashboard');

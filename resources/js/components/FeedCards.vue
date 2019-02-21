@@ -1,19 +1,16 @@
 <template>
-
-    <div>
-        <div v-for="(idea, id) in data" :key="idea.index">
+    <div class="container">
+        <h1>Feed</h1>
+        <div v-for="(idea) in data" :key="idea.index">
           <div class="card">
             <div class="card-header">
-              <h5><a v-bind:href="'./idea/' + idea.id">{{idea.title}}</a></h5>
+              <h5>{{idea.title}}</h5>
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
                 <p>{{idea.body}}</p>
                 <small>Oprettet: {{idea.created_at}} af {{idea.author}}</small>
               </li>
-              <li class="list-group-item">
-                <button class="btn btn-primary" @click="destroy(id)">Slet</button>
-              </li> 
             </ul>
           </div>
           <br>

@@ -1,29 +1,35 @@
 <template>
 
     <div class="container">
-        <h3><span class="glyphicon glyphicon-dashboard"></span> Dashboard </h3> <br>
-        <button class="btn btn-success"  @click="modalAdd()">
-            Tilføj idé
-        </button>
-        <hr>
-        <div v-for="(idea, index) in ideas" :key="idea.index">
-          <div class="card">
-            <div class="card-header">
-              <h5><a v-bind:href="'./idea/' + idea.id">{{idea.title}}</a></h5>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="panel">
+                    <h2> Dashboard </h2>
+                    <button class="btn btn-success"  @click="modalAdd()">
+                        Tilføj idé
+                    </button>
+                    <br>
+                    <hr>
+                    <div v-for="(idea, index) in ideas" :key="idea.index">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>{{idea.title}}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>{{idea.body}}</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary btn-sm" @click="modalUpdate(index)">Redigér</button>
+                                <button class="btn btn-danger btn-sm" @click="destroy(index)">Slet</button>
+                                <small class="float-right">{{idea.created_at}}</small>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <p>{{idea.body}}</p>
-                <small>Oprettet: {{idea.created_at}} af {{idea.author}}</small>
-              </li>
-              <li class="list-group-item">
-                <button class="btn btn-primary" @click="modalUpdate(index)">Redigér</button>
-                <button class="btn btn-danger" @click="destroy(index)">Slet</button>
-              </li> 
-            </ul>
-          </div>
-          <br>
         </div>
+        
 
         <div class="modal fade" tabindex="-1" role="dialog" id="add_idea_model">
            <div class="modal-dialog" role="document">
@@ -93,10 +99,7 @@
                </div>
            </div>
        </div>
-
-       
-
-    </div>
+</div>
     
 </template>
 
@@ -135,7 +138,7 @@ export default {
 
     loadIdea: function() {
         this.data = 'Loading..';
-        axios.get('/ideazer/public/api/idea')
+        axios.get('/ideazer/public/api/dashboard/')
         .then((response)=>{
         this.ideas = response.data;
         })
@@ -193,3 +196,41 @@ export default {
   
 }
 </script>
+
+<style>
+.container{
+    padding-bottom: 50px;
+}
+
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    background-color:#e4e5ec;
+}
+
+h5{
+    font-weight:bold;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card-header{
+    background-color: #e4e5ec;
+}
+
+.card-body{
+    background-color: rgb(255, 255, 255);
+    padding: 5px 0px 0px 20px;
+}
+
+.card-footer{
+    background-color: rgb(255, 255, 255);
+}
+
+#panel{
+    border: 1px solid lightgrey;
+    padding: 3%;
+    border-radius: 5px;
+}
+</style>
