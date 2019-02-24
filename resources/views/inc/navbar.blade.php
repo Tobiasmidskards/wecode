@@ -4,42 +4,33 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="/ideazer/public/feed">Feed</a>
-          <a class="nav-item nav-link" href="/ideazer/public/home">Dashboard</a>
-          </div>
+            <ul class="navbar-nav">
+                <li><a class="nav-item nav-link active" href="{{ url('/feed')}}">Feed</a></li>
+                <li><a class="nav-item nav-link" href="{{ url('/dashboard')}}">Dashboard</a></li>
+            </ul>
         
-        <ul class="navbar-nav ml-auto">
-            <!-- Authentication Links -->
-            @guest
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}"> Log ind </a>
-                </li>
-                @if (Route::has('register'))
+            <ul class="navbar-nav ml-auto">
+                @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">Registrér</a>
+                        <a class="nav-link" href="{{ url('/login')}}"> Log ind </a>
                     </li>
-                @endif
-            @else
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }} <span class="caret"></span>
-                    </a>
-    
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-                            Log ud
-                        </a>
-    
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
-            @endguest
-        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/register')}}">Registrér</a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                Log ud
+                            </a>
+                            <form id="logout-form" action="{{ url('/logout')}}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link disabled">{{ Auth::user()->name }} </a>
+                    </li>
+                @endguest
+            </ul>
       </div>
-      </nav>
-      <br>
+</nav>
+<br>

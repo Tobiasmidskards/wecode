@@ -1,6 +1,6 @@
 <template>
 
-    <div class="container">
+    <div class="container" id="dashboard">
         <div class="row">
             <div class="col-md-12">
                 <div id="panel">
@@ -11,14 +11,14 @@
                     <br>
                     <hr>
                     <div v-for="(idea, index) in ideas" :key="idea.index">
-                        <div class="card">
-                            <div class="card-header">
+                        <div class="card" id="dashcard">
+                            <div class="card-header" id="dashcard-id">
                                 <h5>{{idea.title}}</h5>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" id="dashcard-body">
                                 <p>{{idea.body}}</p>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer" id="dashcard-footer">
                                 <button class="btn btn-primary btn-sm" @click="modalUpdate(index)">Redigér</button>
                                 <button class="btn btn-danger btn-sm" @click="destroy(index)">Slet</button>
                                 <small class="float-right">{{idea.created_at}}</small>
@@ -107,6 +107,8 @@
 <script>
 
 export default {
+
+  // for hver v-model, skal der være et field.
   data() {
     return {
       idea:{
@@ -119,57 +121,68 @@ export default {
     }
   },
 
-  // Fetches posts when the component is created.
+  // Henter ideér når component bliver oprettet.
   created: function(none) {
-        this.loadIdea();
+        this.loadIdeas();
     },
 
+  // Javascript metoder.
   methods: {
+    
+    // Når der klikkes på 'Tilføj idé', vises en modal-popup. 
     modalAdd: function(){
+        this.idea.title = '';
+        this.idea.body = '';
         $("#add_idea_model").modal("show");
-
     },
 
+    // Når der klikkes på 'redigér', vises en modal-popup.
+    // Samtidig sætter vi det lokale field, til at indeholde de informationer for den pågældene idé i arrayet, afhængig af indexet.
     modalUpdate: function(index){
         this.errors = [];
         $("#update_idea_model").modal("show");
         this.update_idea = this.ideas[index];
     },
 
-    loadIdea: function() {
-        this.data = 'Loading..';
+    // Alle ideer bliver fetched og gemt i this.ideas arrayet. 
+    loadIdeas: function() {
         axios.get('/ideazer/public/api/dashboard/')
         .then((response)=>{
-        this.ideas = response.data;
+            this.ideas = response.data;
         })
-        .catch(function (error){
-        this.ideas = 'An error occoured.' + error;
+        .catch((error)=>{
+            this.ideas = 'An error occoured.' + error;
         });
     },
 
+    //
     destroy: function(index){
-        let conf = confirm("Vil du gerne skrotte denne Idé");
+        // Et confirm popup sikrer at brugeren ikke sletter en idé uhensigtsmæssigt. 
+        let conf = confirm("Vil du skrotte denne Idé?");
 
         if (conf === true) {
-        axios.delete('/ideazer/public/api/idea/' + this.ideas[index].id)
-            .then(response => {
-                this.ideas.splice(index, 1);
-            })
-            .catch(error => {
-
-            })
+            axios.delete('/ideazer/public/api/idea/' + this.ideas[index].id)
+                .then(response => {
+                    // Fjerner elementet fra arrayet.
+                    this.ideas.splice(index, 1);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         }
     },
 
     updateIdea: function(index){
+        // Sender de opdaterede felter til controlleren.
         axios.patch('/ideazer/public/api/idea/' + this.update_idea.id, {
             title: this.update_idea.title,
             body: this.update_idea.body
         })
-        .then(function (response){
+        .then((response)=>{
             console.log(response);
         })
-        .catch(function (error) {
+        .catch((error) => {
+            alert("Udfyld venligst begge felter.");
             console.log(error);
         });
 
@@ -182,12 +195,16 @@ export default {
             body: this.idea.body
         })
         .then((response)=>{
+            // Resetter lokale fields.
             this.ideas.title = '';
             this.ideas.body = '';
+
+            //Indsætter elementet først i arrayet.
             this.ideas.unshift(response.data.idea);
             $("#add_idea_model").modal("hide");
         })
-        .catch(function (error) {
+        .catch((error)=>{
+            alert("Udfyld venligst begge felter.");
             console.log(error);
         });
         
@@ -198,11 +215,11 @@ export default {
 </script>
 
 <style>
-.container{
+#dashboard{
     padding-bottom: 50px;
 }
 
-.card{
+#dashcard{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     background-color:#e4e5ec;
 }
@@ -211,20 +228,20 @@ h5{
     font-weight:bold;
 }
 
-.card:hover {
+#dashcard:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-.card-header{
+#dashcard-header{
     background-color: #e4e5ec;
 }
 
-.card-body{
+#dashcard-body{
     background-color: rgb(255, 255, 255);
     padding: 5px 0px 0px 20px;
 }
 
-.card-footer{
+#dashcard-footer{
     background-color: rgb(255, 255, 255);
 }
 

@@ -15,8 +15,6 @@ Herunder kan der også parses data videre til de forskellige views.
 Hvis web.php, også skulle håndtere data, ville der potentielt være interferrens mellem følsomme oplysninger.
 Derfor laves der en controller til at holde styr på et område.
 
-Der nedarves fra Controller, så vi kan håndtere requests (??).
-
 */
 
 class PagesController extends Controller

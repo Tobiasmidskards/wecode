@@ -15,21 +15,10 @@ Route::get('/', 'PagesController@index');
 
 Route::get('/feed', 'PagesController@feed');
 
-Route::get('/create', 'PagesController@create');
-
-Route::get('/idea/{id}', 'PagesController@show');
-
-Route::get('/edit/{id}', 'PagesController@edit');
+Route::get('/dashboard', 'DashboardController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-// Jeg kan ikke få auth til at fungere fra api.php
-//Route::get('/api/idea', 'IdeaController@index');
-
-//Route::post('/api/idea', 'IdeaController@store');
-
+// Auth middleware fungere ikke fra /api.php
 Route::resource('/api/idea', 'IdeaController');
 Route::get('/api/dashboard', 'IdeaController@dashboard');
