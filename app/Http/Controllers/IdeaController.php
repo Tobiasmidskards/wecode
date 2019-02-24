@@ -50,7 +50,7 @@ class IdeaController extends Controller
             'body' => 'required'
         ]);
 
-        // Der prettes en ny model, og dets fields bliver opdateret med brugerens input.
+        // Der oprettes en ny model, og dets fields bliver opdateret med brugerens input.
         $idea = new Idea;
         $idea->title = $request->input('title');
         $idea->body = $request->input('body');
