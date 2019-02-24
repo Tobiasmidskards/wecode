@@ -1,7 +1,7 @@
 ## Wecode ##
 
-## Test projekt:
-# Intern idé kasse.
+# Test projekt
+*Intern idé kasse.*
 
 * `Axios`
 * `Laravel`
