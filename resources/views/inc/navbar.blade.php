@@ -4,9 +4,11 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav mr-auto">
                 <li><a class="nav-item nav-link active" href="{{ url('/feed')}}">Feed</a></li>
+                @auth
                 <li><a class="nav-item nav-link" href="{{ url('/dashboard')}}">Dashboard</a></li>
+                @endauth
             </ul>
         
             <ul class="navbar-nav ml-auto">
