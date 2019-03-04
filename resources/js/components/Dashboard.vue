@@ -94,7 +94,7 @@
                    </div>
                    <div class="modal-footer">
                        <button type="button" class="btn btn-default" data-dismiss="modal">Luk</button>
-                       <button type="button" @click="updateIdea" class="btn btn-primary">Opret</button>
+                       <button type="button" @click="updateIdea" class="btn btn-primary">Opdatér</button>
                    </div>
                </div>
            </div>
@@ -146,7 +146,7 @@ export default {
 
     // Alle ideer bliver fetched og gemt i this.ideas arrayet. 
     loadIdeas: function() {
-        axios.get('/ideazer/public/api/dashboard/')
+        axios.get('/api/dashboard/')
         .then((response)=>{
             this.ideas = response.data;
         })
@@ -161,7 +161,7 @@ export default {
         let conf = confirm("Vil du skrotte denne Idé?");
 
         if (conf === true) {
-            axios.delete('/ideazer/public/api/idea/' + this.ideas[index].id)
+            axios.delete('/api/idea/' + this.ideas[index].id)
                 .then(response => {
                     // Fjerner elementet fra arrayet.
                     this.ideas.splice(index, 1);
@@ -174,7 +174,7 @@ export default {
 
     updateIdea: function(index){
         // Sender de opdaterede felter til controlleren.
-        axios.patch('/ideazer/public/api/idea/' + this.update_idea.id, {
+        axios.patch('/api/idea/' + this.update_idea.id, {
             title: this.update_idea.title,
             body: this.update_idea.body
         })
@@ -190,7 +190,7 @@ export default {
     },
 
     createIdea: function(index){
-        axios.post('/ideazer/public/api/idea', {
+        axios.post('/api/idea', {
             title: this.idea.title,
             body: this.idea.body
         })

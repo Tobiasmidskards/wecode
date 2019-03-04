@@ -38,7 +38,6 @@ export default {
     }
   },
 
-  // Fetches posts when the component is created.
   created: function() {
     this.loadIdea();
   },
@@ -46,7 +45,7 @@ export default {
   methods: {
     loadIdea: function() {
       this.data = 'Loading..';
-      axios.get('/ideazer/public/api/idea')
+      axios.get('/api/idea')
       .then((response)=>{
         this.ideas = response.data;
 
@@ -60,7 +59,7 @@ export default {
       let conf = confirm("Vil du gerne skrotte denne Idé");
 
       if (conf === true) {
-        axios.delete('/ideazer/public/api/idea/' + this.data[index].id)
+        axios.delete('/api/idea/' + this.data[index].id)
           .then(response => {
             console.log(response);
           })

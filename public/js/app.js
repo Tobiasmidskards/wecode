@@ -1905,7 +1905,7 @@ __webpack_require__.r(__webpack_exports__);
     loadIdeas: function loadIdeas() {
       var _this = this;
 
-      axios.get('/ideazer/public/api/dashboard/').then(function (response) {
+      axios.get('/api/dashboard/').then(function (response) {
         _this.ideas = response.data;
       }).catch(function (error) {
         _this.ideas = 'An error occoured.' + error;
@@ -1919,7 +1919,7 @@ __webpack_require__.r(__webpack_exports__);
       var conf = confirm("Vil du skrotte denne Idé?");
 
       if (conf === true) {
-        axios.delete('/ideazer/public/api/idea/' + this.ideas[index].id).then(function (response) {
+        axios.delete('/api/idea/' + this.ideas[index].id).then(function (response) {
           // Fjerner elementet fra arrayet.
           _this2.ideas.splice(index, 1);
         }).catch(function (error) {
@@ -1929,7 +1929,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateIdea: function updateIdea(index) {
       // Sender de opdaterede felter til controlleren.
-      axios.patch('/ideazer/public/api/idea/' + this.update_idea.id, {
+      axios.patch('/api/idea/' + this.update_idea.id, {
         title: this.update_idea.title,
         body: this.update_idea.body
       }).then(function (response) {
@@ -1943,7 +1943,7 @@ __webpack_require__.r(__webpack_exports__);
     createIdea: function createIdea(index) {
       var _this3 = this;
 
-      axios.post('/ideazer/public/api/idea', {
+      axios.post('/api/idea', {
         title: this.idea.title,
         body: this.idea.body
       }).then(function (response) {
@@ -2011,7 +2011,6 @@ __webpack_require__.r(__webpack_exports__);
       ideas: []
     };
   },
-  // Fetches posts when the component is created.
   created: function created() {
     this.loadIdea();
   },
@@ -2020,7 +2019,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.data = 'Loading..';
-      axios.get('/ideazer/public/api/idea').then(function (response) {
+      axios.get('/api/idea').then(function (response) {
         _this.ideas = response.data;
       }).catch(function (error) {
         console.log(error);
@@ -2030,7 +2029,7 @@ __webpack_require__.r(__webpack_exports__);
       var conf = confirm("Vil du gerne skrotte denne Idé");
 
       if (conf === true) {
-        axios.delete('/ideazer/public/api/idea/' + this.data[index].id).then(function (response) {
+        axios.delete('/api/idea/' + this.data[index].id).then(function (response) {
           console.log(response);
         }).catch(function (error) {
           console.log(error);

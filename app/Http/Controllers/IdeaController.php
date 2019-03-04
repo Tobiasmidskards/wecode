@@ -52,15 +52,14 @@ class IdeaController extends Controller
 
         // Der oprettes en ny model, og dets fields bliver opdateret med brugerens input.
         $idea = new Idea;
-        $idea->title = $request->input('title');
-        $idea->body = $request->input('body');
-        $idea->user_id = auth()->user()->id;
 
+        $idea->fill($request->all());
+        $idea->user_id = auth()->user()->id;
+        
         // Committer. 
         $idea->save();
 
         // Vi sender ideén samt en besked som JSON.
-
         return response()->json([
             'idea' => $idea,
             'message' => 'Successfully uploaded to database'
@@ -75,11 +74,9 @@ class IdeaController extends Controller
 
         // Finder den eksisterende idé fra databasen, og ændrer dets fields i modellen.
         $idea = Idea::find($id);
-        $idea->title = $request->input('title');
-        $idea->body = $request->input('body');
-
-        // committer.
-        $idea->save();
+        
+        // Bruger modellen, med en fillable property.
+        $idea->update($request->all());       
 
         return response()->json([
             'message' => 'Successfully updated the database'
